@@ -136,7 +136,7 @@ export default class RoomProvider extends Component {
       }
       return check;
     });
-    // //filter by size
+    //filter by size
     // tempRooms = tempRooms.filter(
     //   room => room.size >= minSize && room.size <= maxSize
     // );
