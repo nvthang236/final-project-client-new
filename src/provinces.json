@@ -1,0 +1,84 @@
+[
+  {
+    "id": "3",
+    "code": "DDN",
+    "name": "Đà Nẵng",
+    "districts": [
+      {
+        "id": "55",
+        "name": "Cẩm Lệ"
+      },
+      {
+        "id": "56",
+        "name": "Hải Châu"
+      },
+      {
+        "id": "57",
+        "name": "Hòa Vang"
+      },
+      {
+        "id": "58",
+        "name": "Hoàng Sa"
+      },
+      {
+        "id": "59",
+        "name": "Liên Chiểu"
+      },
+      {
+        "id": "60",
+        "name": "Ngũ Hành Sơn"
+      },
+      {
+        "id": "61",
+        "name": "Sơn Trà"
+      },
+      {
+        "id": "62",
+        "name": "Thanh Khê"
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "code": "TTH",
+    "name": "Thừa Thiên Huế",
+    "districts": [
+      {
+        "id": "193",
+        "name": "A Lưới"
+      },
+      {
+        "id": "194",
+        "name": "Huế"
+      },
+      {
+        "id": "195",
+        "name": "Hương Thủy"
+      },
+      {
+        "id": "196",
+        "name": "Hương Trà"
+      },
+      {
+        "id": "197",
+        "name": "Nam Đông"
+      },
+      {
+        "id": "198",
+        "name": "Phong Điền"
+      },
+      {
+        "id": "199",
+        "name": "Phú Lộc"
+      },
+      {
+        "id": "200",
+        "name": "Phú Vang"
+      },
+      {
+        "id": "201",
+        "name": "Quảng Điền"
+      }
+    ]
+  }
+]

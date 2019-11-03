@@ -9,7 +9,7 @@ export default function Room({ room }) {
   return (
     <article className='room'>
       <div className='img-container'>
-        <img src={images[0] || defaultImg} alt='single room' />
+        <img src={images[0].src || defaultImg} alt={images[0].title} />
         {/* <div className='price-top'>
           <h6>{ratingStar} star</h6>
           <p>per night</p>
@@ -27,7 +27,7 @@ Room.propTypes = {
   room: PropTypes.shape({
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
-    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    images: PropTypes.arrayOf(PropTypes.object).isRequired,
     ratingStar: PropTypes.number.isRequired
   })
 };
