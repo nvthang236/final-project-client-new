@@ -32,7 +32,7 @@ export default function RoomFilter({ rooms }) {
     </option>
   ));
   // get unique group major
-  let groupMajorList = getUnique(rooms, 'groupMajor');
+  let groupMajorList = [...new Set(rooms.map(item => item.groupMajor.name))];
   // add all
   groupMajorList = ['All', ...groupMajorList];
   groupMajorList = groupMajorList.map((item, index) => (
@@ -46,9 +46,9 @@ export default function RoomFilter({ rooms }) {
       rooms
         .map(item =>
           groupMajor === 'All'
-            ? item.major.map(element => element.name)
+            ? item.major.map(element => element.name.name)
             : item.groupMajor === groupMajor
-            ? item.major.map(element => element.name)
+            ? item.major.map(element => element.name.name)
             : null
         )
         .flat()

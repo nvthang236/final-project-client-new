@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import defaultBcg from '../images/room-1.jpeg';
+import defaultBcg from '../images/listOfUniversity.jpeg';
 import Hero from '../components/Hero';
 import Banner from '../components/Banner';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,8 @@ export default class ReviewForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // slug: this.props.match.params.slug,
+      id: this.props.match.params.universityId,
+      loading: true,
       defaultBcg,
       displayName: '',
       university: '',
@@ -24,7 +25,20 @@ export default class ReviewForm extends Component {
   }
 
   static contextType = RoomContext;
-  // componentDidMount() {}
+
+  async componentDidMount() {
+    const { getRoomById } = await this.context;
+    const room = getRoomById(this.state.id);
+    if (room) {
+      this.setState({
+        loading: false
+      });
+      const { name } = room;
+      this.setState({
+        university: name
+      });
+    }
+  }
 
   handleChange = event => {
     let change = null;
@@ -38,13 +52,21 @@ export default class ReviewForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log('------------------------------------');
-    console.log('A name was submitted: ' + JSON.stringify(this.state));
-    console.log('------------------------------------');
+    const { addReview } = this.context;
+    addReview(this.state, this);
   };
 
   render() {
-    const {} = this.context;
+    if (this.state.loading) {
+      return (
+        <div className='error'>
+          <h3>no such university could be found...</h3>
+          <Link to='/universities' className='btn-primary'>
+            back to universities
+          </Link>
+        </div>
+      );
+    }
     return (
       <>
         {/* <StyledHero img={mainImg || this.state.defaultBcg}>

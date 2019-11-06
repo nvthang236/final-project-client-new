@@ -15,7 +15,11 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/universities' component={Rooms} />
-        <Route exact path='/universities/add-review' component={ReviewForm} />
+        <Route
+          exact
+          path='/universities/add-review/:universityId'
+          component={ReviewForm}
+        />
         <Route exact path='/universities/:slug' component={SingleRoom} />
         <Route component={Error} />
       </Switch>

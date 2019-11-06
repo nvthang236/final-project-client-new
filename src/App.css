@@ -577,6 +577,26 @@ h6 {
   background-color: #d28314;
   color: #fff;
 }
+.review-empty {
+  margin-top: 3em;
+  text-align: center;
+}
+.review-empty div {
+  padding: 0.5em;
+}
+.review-empty div a {
+  color: #34629c;
+  text-decoration: none;
+}
+.review-empty div a:hover {
+  text-decoration: underline;
+}
+@media screen and (min-width: 480px) {
+  .review-empty div {
+    font-size: 1.5em;
+    padding-top: 0;
+  }
+}
 @media only screen and (min-width: 840px) {
   .reviews-item {
     padding: 26px 0;

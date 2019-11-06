@@ -47,16 +47,19 @@ export default class RoomProvider extends Component {
       // maxSize
       // featuredRooms,
     });
+    console.log('------------------------------------');
+    console.log('context componentDidMount rooms', rooms);
+    console.log('------------------------------------');
   }
 
   formatData(items) {
+    console.log('------------------------------------');
+    console.log('context formatData items', items);
+    console.log('------------------------------------');
     const tempItems = items.map(item => {
-      const id = item._id;
-      const groupMajor = item.groupMajor.name;
       const major = item.major.map(elem => ({
         ...elem,
-        id: elem._id,
-        name: elem.name.name
+        id: elem._id
       }));
       let city = null;
       for (const province of provinces) {
@@ -64,7 +67,11 @@ export default class RoomProvider extends Component {
           city = province.name;
         }
       }
-      const university = { ...item, id, groupMajor, major, city };
+      const reviews = item.reviews.map(elem => ({
+        ...elem,
+        id: elem._id
+      }));
+      const university = { ...item, major, city, reviews };
       return university;
     });
     return tempItems;
@@ -74,6 +81,23 @@ export default class RoomProvider extends Component {
     const tempRooms = [...this.state.rooms];
     const room = tempRooms.find(room => room.slug === slug);
     return room;
+  };
+
+  getRoomById = id => {
+    const tempRooms = [...this.state.rooms];
+    console.log('------------------------------------');
+    console.log('context getRoomById tempRooms', tempRooms);
+    console.log('------------------------------------');
+    const room = tempRooms.find(room => room.id === id);
+    return room;
+  };
+
+  addReview = (data, pointerThis) => {
+    const id = data.id;
+    const room = this.getRoomById(id);
+    room.reviews.push(data);
+    pointerThis.props.history.push(`/universities/${room.slug}`);
+    axios.put(`/universities/${id}`, room);
   };
 
   handleChange = event => {
@@ -110,14 +134,14 @@ export default class RoomProvider extends Component {
     }
     // filter by groupMajor
     if (groupMajor !== 'All') {
-      tempRooms = tempRooms.filter(room => room.groupMajor === groupMajor);
+      tempRooms = tempRooms.filter(room => room.groupMajor.name === groupMajor);
     }
     // filter by major
     if (major !== 'All') {
       tempRooms = tempRooms.filter(room => {
         let check = false;
         for (const m of room.major) {
-          if (m.name === major) {
+          if (m.name.name === major) {
             check = true;
             break;
           }
@@ -159,6 +183,8 @@ export default class RoomProvider extends Component {
         value={{
           ...this.state,
           getRoom: this.getRoom,
+          getRoomById: this.getRoomById,
+          addReview: this.addReview,
           handleChange: this.handleChange
         }}
       >
