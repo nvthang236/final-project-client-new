@@ -47,7 +47,7 @@ export default function RoomFilter({ rooms }) {
         .map(item =>
           groupMajor === 'All'
             ? item.major.map(element => element.name.name)
-            : item.groupMajor === groupMajor
+            : item.groupMajor.name === groupMajor
             ? item.major.map(element => element.name.name)
             : null
         )
