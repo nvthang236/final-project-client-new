@@ -96,6 +96,9 @@ export default class RoomProvider extends Component {
     const id = data.id;
     const room = this.getRoomById(id);
     room.reviews.push(data);
+    room.reviewsCounting = room.reviews.length;
+    room.reviewsRating =
+      ((room.reviewsRating || 0) + data.ratingStar) / room.reviews.length;
     pointerThis.props.history.push(`/universities/${room.slug}`);
     axios.put(`/universities/${id}`, room);
   };
