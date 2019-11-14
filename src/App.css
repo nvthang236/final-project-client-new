@@ -138,9 +138,36 @@ h6 {
 .nav-links a:hover {
   color: var(--primaryColor);
 }
-
+.nav-sign {
+  overflow: hidden;
+  height: 0;
+  display: flex;
+  align-items: center;
+}
+.nav-sign a {
+  text-decoration: none;
+  letter-spacing: var(--mainSpacing);
+  transition: var(--mainTransition);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--mainBlack);
+  padding: 1rem 0;
+  text-align: center;
+}
+.nav-sign a:hover {
+  color: var(--primaryColor);
+}
 .show-nav {
-  height: 100px;
+  height: 90px;
+}
+.logout {
+  width: 98.91%;
+}
+.username {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--mainBlack);
+  margin-top: 2.5px;
 }
 @media screen and (min-width: 768px) {
   .nav-btn {
@@ -156,6 +183,10 @@ h6 {
     display: flex;
     margin-left: 4rem;
   }
+  .nav-sign {
+    height: auto;
+    margin-left: auto;
+  }
   .nav-links a {
     margin: 0 1rem;
     padding: 0.5rem 0;
@@ -164,14 +195,14 @@ h6 {
 /* end of navbar */
 /* Hero */
 .defaultHero,
-.roomsHero {
+.universitiesHero {
   min-height: calc(100vh - 66px);
   background: url('./images/defaultBcg.jpeg') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.roomsHero {
+.universitiesHero {
   background-image: url('./images/listOfUniversity.jpeg');
   min-height: 60vh;
 }
@@ -278,12 +309,12 @@ h6 {
   }
 }
 /*end of services */
-/* featured rooms */
+/* featured universities */
 
-.featured-rooms {
+.featured-universities {
   padding: 5rem 0;
 }
-.featured-rooms-center {
+.featured-universities-center {
   width: 80vw;
   margin: 0 auto;
   display: grid;
@@ -292,24 +323,24 @@ h6 {
   grid-column-gap: 40px;
 }
 @media screen and (min-width: 776px) {
-  .featured-rooms-center {
+  .featured-universities-center {
     width: 90vw;
     grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
   }
 }
 @media screen and (min-width: 992px) {
-  .featured-rooms-center {
+  .featured-universities-center {
     width: 95vw;
     max-width: 1170px;
   }
 }
-/* end pf featured rooms */
-/* room */
-.room {
+/* end pf featured universities */
+/* university */
+.university {
   box-shadow: var(--lightShadow);
   transition: var(--mainTransition);
 }
-.room:hover {
+.university:hover {
   box-shadow: var(--darkShadow);
 }
 
@@ -340,7 +371,7 @@ h6 {
   font-weight: 300;
   letter-spacing: var(--mainSpacing);
 }
-.room-link {
+.university-link {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -356,10 +387,10 @@ h6 {
 .img-container:hover .price-top {
   opacity: 0;
 }
-.img-container:hover .room-link {
+.img-container:hover .university-link {
   transform: translate(-50%, -50%) scale(1);
 }
-.room-info {
+.university-info {
   background: var(--darkGrey);
   text-transform: capitalize;
   padding: 0.5rem 0;
@@ -367,13 +398,13 @@ h6 {
   font-weight: 700;
   letter-spacing: var(--mainSpacing);
 }
-/* end of room  */
-/* single room*/
+/* end of university  */
+/* single university*/
 
-.single-room {
+.single-university {
   padding: 5rem 0 0 0;
 }
-.single-room-images {
+.single-university-images {
   width: 80vw;
   margin: 0 auto;
   display: grid;
@@ -381,12 +412,12 @@ h6 {
   grid-row-gap: 2rem;
   grid-column-gap: 50px;
 }
-.single-room-images img {
+.single-university-images img {
   width: 100%;
   height: 200px;
   display: block;
 }
-.single-room-info {
+.single-university-info {
   width: 80vw;
   display: grid;
   grid-template-columns: 1fr;
@@ -412,11 +443,11 @@ h6 {
 .info h6 {
   font-weight: 300;
 }
-.room-extras {
+.university-extras {
   width: 80vw;
   margin: 0 auto 3rem auto;
 }
-.room-extras h6 {
+.university-extras h6 {
   text-transform: capitalize;
   letter-spacing: var(--mainSpacing);
 }
@@ -428,13 +459,13 @@ h6 {
   grid-row-gap: 1rem;
 }
 @media screen and (min-width: 992px) {
-  .single-room-images,
-  .single-room-info,
-  .room-extras {
+  .single-university-images,
+  .single-university-info,
+  .university-extras {
     width: 95vw;
     max-width: 1170px;
   }
-  .single-room-info {
+  .single-university-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 2rem;
@@ -443,12 +474,12 @@ h6 {
     padding-left: 3rem;
   }
 }
-/* end of single room*/
-/* roomlist */
-.roomslist {
+/* end of single university*/
+/* universitylist */
+.universitieslist {
   padding: 5rem 0;
 }
-.roomslist-center {
+.universitieslist-center {
   width: 80vw;
   margin: 0 auto;
   display: grid;
@@ -458,18 +489,18 @@ h6 {
 }
 
 @media screen and (min-width: 776px) {
-  .roomslist-center {
+  .universitieslist-center {
     width: 90vw;
   }
 }
 @media screen and (min-width: 992px) {
-  .roomslist-center {
+  .universitieslist-center {
     width: 95vw;
     max-width: 1170px;
   }
 }
-/* end of roomlist */
-/*  rooms fitler*/
+/* end of universitylist */
+/*  universities fitler*/
 .filter-container {
   padding: 5rem 0;
 }
@@ -704,4 +735,4 @@ h6 {
     max-width: 1170px;
   }
 }
-/* end of rooms fitler*/
+/* end of universities fitler*/

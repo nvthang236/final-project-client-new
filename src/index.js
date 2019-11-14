@@ -4,15 +4,15 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { RoomProvider } from './context';
+import { UniversityProvider } from './context';
 import 'font-awesome/css/font-awesome.min.css';
 
 ReactDOM.render(
-  <RoomProvider>
+  <UniversityProvider>
     <Router>
       <App />
     </Router>
-  </RoomProvider>,
+  </UniversityProvider>,
   document.getElementById('root')
 );
 

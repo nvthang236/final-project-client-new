@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import defaultImg from '../images/listOfUniversity.jpeg';
 import PropTypes from 'prop-types';
 
-export default function Room({ room }) {
-  const { name, slug, images, reviewsRating, reviewsCounting } = room;
+export default function University({ university }) {
+  const { name, slug, images, reviewsRating, reviewsCounting } = university;
 
   return (
-    <article className='room'>
+    <article className='university'>
       <div className='img-container'>
         <img src={images[0].src || defaultImg} alt={images[0].title} />
         <div className='price-top'>
@@ -16,17 +16,17 @@ export default function Room({ room }) {
           </h6>
           <h6>({reviewsCounting || 0} reviews)</h6>
         </div>
-        <Link to={`/universities/${slug}`} className='btn-primary room-link'>
+        <Link to={`/universities/${slug}`} className='btn-primary university-link'>
           view more
         </Link>
       </div>
-      <p className='room-info'>{name}</p>
+      <p className='university-info'>{name}</p>
     </article>
   );
 }
 
-Room.propTypes = {
-  room: PropTypes.shape({
+University.propTypes = {
+  university: PropTypes.shape({
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     images: PropTypes.arrayOf(PropTypes.object).isRequired,

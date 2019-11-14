@@ -3,13 +3,14 @@ import items from './data';
 import axios from 'axios';
 import provinces from './provinces';
 
-const RoomContext = React.createContext();
+const UniversityContext = React.createContext();
 
-export default class RoomProvider extends Component {
+export default class UniversityProvider extends Component {
   state = {
-    rooms: [],
-    sortedRooms: [],
-    featuredRooms: [],
+    user: {},
+    universities: [],
+    sortedUniversities: [],
+    featuredUniversities: [],
     loading: true,
     city: 'All',
     groupMajor: 'All',
@@ -20,35 +21,65 @@ export default class RoomProvider extends Component {
     minSize: 0,
     maxSize: 0,
     breakfast: false,
-    pets: false
+    pets: false,
   };
 
-  // getData
+  loginUser = user => {
+    this.setState({
+      user,
+    });
+  };
+
+  logoutUser = () => {
+    this.setState({
+      user: {},
+    });
+  };
 
   async componentDidMount() {
     // this.getData
-    // const rooms = this.formatData(items);
+    // const universities = this.formatData(items);
     const params = {
-      populates: [{ path: 'major.name' }, { path: 'groupMajor' }]
+      populates: [{ path: 'major.name' }, { path: 'groupMajor' }],
     };
-    const getResponse = await axios.get('/universities', { params });
-    const rooms = this.formatData(getResponse.data);
-    // const featuredRooms = rooms.filter(room => room.featured === true);
+    let getUniversityResponse = null;
+    let getUserResponse = null;
+    getUniversityResponse = await axios
+      .get('/universities', {
+        params,
+      })
+      .then(res => res.data);
+    try {
+      const token = localStorage.getItem('access_token');
+      axios.defaults.headers.common['X-Access-Token'] = token;
+      getUserResponse = await axios.get('/auth/user').then(res => res.data);
+    } catch (err) {
+      console.log('------------------------------------');
+      console.log('err', err);
+      console.log('------------------------------------');
+      getUserResponse = {};
+    }
+    // const getResponse = await axios.get('/universities', { params });
+    const universities = this.formatData(getUniversityResponse);
+    // const featuredUniversities = universities.filter(university => university.featured === true);
     const maxPrice = Math.max(
-      ...rooms.map(item => item.major.map(element => element.price)).flat()
+      ...universities
+        .map(item => item.major.map(element => element.price))
+        .flat()
     );
-    // const maxSize = Math.max(...rooms.map(item => item.size));
+    // const maxSize = Math.max(...universities.map(item => item.size));
     this.setState({
-      rooms,
-      sortedRooms: rooms,
+      universities,
+      sortedUniversities: universities,
       loading: false,
       price: maxPrice,
-      maxPrice
+      maxPrice,
+      user: getUserResponse,
       // maxSize
-      // featuredRooms,
+      // featuredUniversities,
     });
     console.log('------------------------------------');
-    console.log('context componentDidMount rooms', rooms);
+    console.log('context componentDidMount universities', universities);
     console.log('------------------------------------');
   }
 
@@ -59,7 +90,7 @@ export default class RoomProvider extends Component {
     const tempItems = items.map(item => {
       const major = item.major.map(elem => ({
         ...elem,
-        id: elem._id
+        id: elem._id,
       }));
       let city = null;
       for (const province of provinces) {
@@ -69,7 +100,7 @@ export default class RoomProvider extends Component {
       }
       const reviews = item.reviews.map(elem => ({
         ...elem,
-        id: elem._id
+        id: elem._id,
       }));
       const university = { ...item, major, city, reviews };
       return university;
@@ -77,30 +108,30 @@ export default class RoomProvider extends Component {
     return tempItems;
   }
 
-  getRoom = slug => {
-    const tempRooms = [...this.state.rooms];
-    const room = tempRooms.find(room => room.slug === slug);
-    return room;
+  getUniversity = slug => {
+    const tempUniversities = [...this.state.universities];
+    const university = tempUniversities.find(university => university.slug === slug);
+    return university;
   };
 
-  getRoomById = id => {
-    const tempRooms = [...this.state.rooms];
+  getUniversityById = id => {
+    const tempUniversities = [...this.state.universities];
     console.log('------------------------------------');
-    console.log('context getRoomById tempRooms', tempRooms);
+    console.log('context getUniversityById tempUniversities', tempUniversities);
     console.log('------------------------------------');
-    const room = tempRooms.find(room => room.id === id);
-    return room;
+    const university = tempUniversities.find(university => university.id === id);
+    return university;
   };
 
   addReview = (data, pointerThis) => {
     const id = data.id;
-    const room = this.getRoomById(id);
-    room.reviews.push(data);
-    room.reviewsCounting = room.reviews.length;
-    room.reviewsRating =
-      ((room.reviewsRating || 0) + data.ratingStar) / room.reviews.length;
-    pointerThis.props.history.push(`/universities/${room.slug}`);
-    axios.put(`/universities/${id}`, room);
+    const university = this.getUniversityById(id);
+    university.reviews.push(data);
+    university.reviewsCounting = university.reviews.length;
+    university.reviewsRating =
+      ((university.reviewsRating || 0) + data.ratingStar) / university.reviews.length;
+    pointerThis.props.history.push(`/universities/${university.slug}`);
+    axios.put(`/universities/${id}`, university);
   };
 
   handleChange = event => {
@@ -109,15 +140,15 @@ export default class RoomProvider extends Component {
     const name = target.name;
     this.setState(
       {
-        [name]: value
+        [name]: value,
       },
-      this.filterRooms
+      this.filterUniversities
     );
   };
 
-  filterRooms = () => {
+  filterUniversities = () => {
     const {
-      rooms,
+      universities,
       city,
       groupMajor,
       major,
@@ -125,25 +156,27 @@ export default class RoomProvider extends Component {
       minSize,
       maxSize,
       breakfast,
-      pets
+      pets,
     } = this.state;
-    // all the rooms
-    let tempRooms = [...rooms];
+    // all the universities
+    let tempUniversities = [...universities];
     // transform value
     // capacity = parseInt(capacity);
     // filter by city
     if (city !== 'All') {
-      tempRooms = tempRooms.filter(room => room.city === city);
+      tempUniversities = tempUniversities.filter(university => university.city === city);
     }
     // filter by groupMajor
     if (groupMajor !== 'All') {
-      tempRooms = tempRooms.filter(room => room.groupMajor.name === groupMajor);
+      tempUniversities = tempUniversities.filter(
+        university => university.groupMajor.name === groupMajor
+      );
     }
     // filter by major
     if (major !== 'All') {
-      tempRooms = tempRooms.filter(room => {
+      tempUniversities = tempUniversities.filter(university => {
         let check = false;
-        for (const m of room.major) {
+        for (const m of university.major) {
           if (m.name.name === major) {
             check = true;
             break;
@@ -153,9 +186,9 @@ export default class RoomProvider extends Component {
       });
     }
     // filter by price
-    tempRooms = tempRooms.filter(room => {
+    tempUniversities = tempUniversities.filter(university => {
       let check = false;
-      for (const m of room.major) {
+      for (const m of university.major) {
         if (m.price <= price) {
           check = true;
           break;
@@ -164,49 +197,51 @@ export default class RoomProvider extends Component {
       return check;
     });
     //filter by size
-    // tempRooms = tempRooms.filter(
-    //   room => room.size >= minSize && room.size <= maxSize
+    // tempUniversities = tempUniversities.filter(
+    //   university => university.size >= minSize && university.size <= maxSize
     // );
     // //filter by breakfast
     // if (breakfast) {
-    //   tempRooms = tempRooms.filter(room => room.breakfast === true);
+    //   tempUniversities = tempUniversities.filter(university => university.breakfast === true);
     // }
     // //filter by pets
     // if (pets) {
-    //   tempRooms = tempRooms.filter(room => room.pets === true);
+    //   tempUniversities = tempUniversities.filter(university => university.pets === true);
     // }
     this.setState({
-      sortedRooms: tempRooms
+      sortedUniversities: tempUniversities,
     });
   };
 
   render() {
     return (
-      <RoomContext.Provider
+      <UniversityContext.Provider
         value={{
           ...this.state,
-          getRoom: this.getRoom,
-          getRoomById: this.getRoomById,
+          getUniversity: this.getUniversity,
+          getUniversityById: this.getUniversityById,
           addReview: this.addReview,
-          handleChange: this.handleChange
+          handleChange: this.handleChange,
+          loginUser: this.loginUser,
+          logoutUser: this.logoutUser,
         }}
       >
         {this.props.children}
-      </RoomContext.Provider>
+      </UniversityContext.Provider>
     );
   }
 }
 
-const RoomConsumer = RoomContext.Consumer;
+const UniversityConsumer = UniversityContext.Consumer;
 
-export function withRoomConsumer(Component) {
+export function withUniversityConsumer(Component) {
   return function ConsumerWrapper(props) {
     return (
-      <RoomConsumer>
+      <UniversityConsumer>
         {value => <Component {...props} context={value} />}
-      </RoomConsumer>
+      </UniversityConsumer>
     );
   };
 }
 
-export { RoomProvider, RoomConsumer, RoomContext };
+export { UniversityProvider, UniversityConsumer, UniversityContext };

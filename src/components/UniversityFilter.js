@@ -1,13 +1,13 @@
 import React from 'react';
 import { useContext } from 'react';
-import { RoomContext } from '../context';
-import Title from '../components/Title';
+import { UniversityContext } from '../context';
+import Title from './Title';
 // get all unique values
 const getUnique = (items, value) => [
   ...new Set(items.map(item => item[value]))
 ];
-export default function RoomFilter({ rooms }) {
-  const context = useContext(RoomContext);
+export default function UniversityFilter({ universities }) {
+  const context = useContext(UniversityContext);
   const {
     handleChange,
     city,
@@ -22,7 +22,7 @@ export default function RoomFilter({ rooms }) {
     pets
   } = context;
   // get unique types
-  let cities = getUnique(rooms, 'city');
+  let cities = getUnique(universities, 'city');
   // add all
   cities = ['All', ...cities];
   // map to jsx
@@ -32,7 +32,7 @@ export default function RoomFilter({ rooms }) {
     </option>
   ));
   // get unique group major
-  let groupMajorList = [...new Set(rooms.map(item => item.groupMajor.name))];
+  let groupMajorList = [...new Set(universities.map(item => item.groupMajor.name))];
   // add all
   groupMajorList = ['All', ...groupMajorList];
   groupMajorList = groupMajorList.map((item, index) => (
@@ -43,7 +43,7 @@ export default function RoomFilter({ rooms }) {
   // get unique major
   let majorList = [
     ...new Set(
-      rooms
+      universities
         .map(item =>
           groupMajor === 'All'
             ? item.major.map(element => element.name.name)
@@ -107,7 +107,7 @@ export default function RoomFilter({ rooms }) {
           </select>
         </div>
         {/* end of guests */}
-        {/* room price */}
+        {/* university price */}
         <div className='form-group'>
           <label htmlFor='price'>tuition ${price}</label>
           <input
@@ -121,10 +121,10 @@ export default function RoomFilter({ rooms }) {
             className='form-control'
           />
         </div>
-        {/* end of room price*/}
+        {/* end of university price*/}
         {/* size */}
         {/* <div className="form-group">
-          <label htmlFor="price">room size </label>
+          <label htmlFor="price">university size </label>
           <div className="size-inputs">
             <input
               type="number"

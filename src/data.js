@@ -155,21 +155,21 @@ export default [
   //       {
   //         fields: {
   //           file: {
-  //             url: room2
+  //             url: university2
   //           }
   //         }
   //       },
   //       {
   //         fields: {
   //           file: {
-  //             url: room3
+  //             url: university3
   //           }
   //         }
   //       },
   //       {
   //         fields: {
   //           file: {
-  //             url: room4
+  //             url: university4
   //           }
   //         }
   //       }
@@ -213,21 +213,21 @@ export default [
   //       {
   //         fields: {
   //           file: {
-  //             url: room2
+  //             url: university2
   //           }
   //         }
   //       },
   //       {
   //         fields: {
   //           file: {
-  //             url: room3
+  //             url: university3
   //           }
   //         }
   //       },
   //       {
   //         fields: {
   //           file: {
-  //             url: room4
+  //             url: university4
   //           }
   //         }
   //       }
@@ -271,21 +271,21 @@ export default [
   //       {
   //         fields: {
   //           file: {
-  //             url: room2
+  //             url: university2
   //           }
   //         }
   //       },
   //       {
   //         fields: {
   //           file: {
-  //             url: room3
+  //             url: university3
   //           }
   //         }
   //       },
   //       {
   //         fields: {
   //           file: {
-  //             url: room4
+  //             url: university4
   //           }
   //         }
   //       }
@@ -298,7 +298,7 @@ export default [
   //   },
   //   fields: {
   //     name: 'presidential',
-  //     slug: 'presidential-room',
+  //     slug: 'presidential-university',
   //     city: 'TP.Hồ Chí Minh',
   //     groupMajor: 'Năng khiếu',
   //     major: [{ name: 'Đạo điễn sân khấu', price: 600 }],
@@ -322,28 +322,28 @@ export default [
   //       {
   //         fields: {
   //           file: {
-  //             url: room1
+  //             url: university1
   //           }
   //         }
   //       },
   //       {
   //         fields: {
   //           file: {
-  //             url: room2
+  //             url: university2
   //           }
   //         }
   //       },
   //       {
   //         fields: {
   //           file: {
-  //             url: room3
+  //             url: university3
   //           }
   //         }
   //       },
   //       {
   //         fields: {
   //           file: {
-  //             url: room4
+  //             url: university4
   //           }
   //         }
   //       }

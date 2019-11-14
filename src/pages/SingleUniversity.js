@@ -3,11 +3,11 @@ import defaultBcg from '../images/listOfUniversity.jpeg';
 import Hero from '../components/Hero';
 import Banner from '../components/Banner';
 import { Link } from 'react-router-dom';
-import { RoomContext } from '../context';
+import { UniversityContext } from '../context';
 import StyledHero from '../components/StyledHero';
 import ReviewList from '../components/ReviewList';
 
-export default class SingleRoom extends Component {
+export default class SingleUniversity extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,16 +16,16 @@ export default class SingleRoom extends Component {
     };
   }
 
-  static contextType = RoomContext;
+  static contextType = UniversityContext;
   // componentDidMount() {}
 
   render() {
-    const { getRoom } = this.context;
-    const room = getRoom(this.state.slug);
+    const { getUniversity } = this.context;
+    const university = getUniversity(this.state.slug);
     console.log('------------------------------------');
-    console.log('room', room);
+    console.log('university', university);
     console.log('------------------------------------');
-    if (!room) {
+    if (!university) {
       return (
         <div className='error'>
           <h3>no such university could be found...</h3>
@@ -47,7 +47,7 @@ export default class SingleRoom extends Component {
       extras,
       breakfast,
       pets
-    } = room;
+    } = university;
     const [mainImg, ...defaultImg] = images;
     return (
       <>
@@ -62,13 +62,13 @@ export default class SingleRoom extends Component {
           <h2 className='reviews-header'>Student & Graduate Reviews</h2>
           <ReviewList reviews={reviews} id={id} />
         </div>
-        {/* <section className='single-room'>
-          <div className='single-room-images'>
+        {/* <section className='single-university'>
+          <div className='single-university-images'>
             {defaultImg.map((item, index) => (
               <img key={index} src={item} alt={name} />
             ))}
           </div>
-          <div className='single-room-info'>
+          <div className='single-university-info'>
             <article className='desc'>
               <h3>details</h3>
               <p>{description}</p>
@@ -86,7 +86,7 @@ export default class SingleRoom extends Component {
             </article>
           </div>
         </section> */}
-        {/* <section className='room-extras'>
+        {/* <section className='university-extras'>
           <h6>extras</h6>
           <ul className='extras'>
             {extras.map((item, index) => (

@@ -3,7 +3,7 @@ import defaultBcg from '../images/listOfUniversity.jpeg';
 import Hero from '../components/Hero';
 import Banner from '../components/Banner';
 import { Link } from 'react-router-dom';
-import { RoomContext } from '../context';
+import { UniversityContext } from '../context';
 import StyledHero from '../components/StyledHero';
 import Rating from 'react-rating';
 import { TextField, Button } from '@material-ui/core';
@@ -24,16 +24,16 @@ export default class ReviewForm extends Component {
     };
   }
 
-  static contextType = RoomContext;
+  static contextType = UniversityContext;
 
   async componentDidMount() {
-    const { getRoomById } = await this.context;
-    const room = getRoomById(this.state.id);
-    if (room) {
+    const { getUniversityById } = await this.context;
+    const university = getUniversityById(this.state.id);
+    if (university) {
       this.setState({
         loading: false
       });
-      const { name } = room;
+      const { name } = university;
       this.setState({
         university: name
       });
