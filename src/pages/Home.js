@@ -10,7 +10,7 @@ const Home = () => {
     <>
       <Hero>
         <Banner
-          title='welcome to my page'
+          title='welcome to universities'
           subtitle='choose the right university for you'
         >
           <Link to='/universities' className='btn-primary'>

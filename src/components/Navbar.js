@@ -11,21 +11,25 @@ import { isEmpty } from 'lodash';
 export default class Navbar extends Component {
   state = {
     isOpen: false,
-    anchorEl: null
+    anchorEl: null,
   };
 
   static contextType = UniversityContext;
 
   handleMenu = event => {
     this.setState({
-      anchorEl: event.currentTarget
+      anchorEl: event.currentTarget,
     });
   };
 
   handleClose = () => {
     this.setState({
-      anchorEl: null
+      anchorEl: null,
     });
+  };
+
+  handleLogout = () => {
+    this.handleClose();
     localStorage.removeItem('access_token');
     delete axios.defaults.headers.common['X-Access-Token'];
     this.context.logoutUser();
@@ -94,17 +98,17 @@ export default class Navbar extends Component {
                 anchorEl={this.state.anchorEl}
                 anchorOrigin={{
                   vertical: 'top',
-                  horizontal: 'right'
+                  horizontal: 'right',
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: 'top',
-                  horizontal: 'right'
+                  horizontal: 'right',
                 }}
                 open={Boolean(this.state.anchorEl)}
                 onClose={this.handleClose}
               >
-                <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           )}
